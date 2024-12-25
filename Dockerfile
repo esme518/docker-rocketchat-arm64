@@ -53,6 +53,9 @@ RUN set -eux \
   && rm rocket.chat.tgz rocket.chat.tgz.asc \
   && cd bundle/programs/server \
   && npm install --unsafe-perm=true \
+  && rm -rf npm/node_modules/sharp \
+  && npm install --cpu=arm64 --os=linux sharp@0.32.6 \
+  && mv node_modules/sharp npm/node_modules/sharp \
   && apt-mark auto '.*' > /dev/null \
   && apt-mark manual $aptMark > /dev/null \
   && find /usr/local -type f -executable -exec ldd '{}' ';' \
